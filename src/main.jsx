@@ -103,7 +103,7 @@ const SwarmField = () => {
 /** The download actions. Plain links, so they work on every input type. */
 const DownloadActions = () => (
   <div className="cta-row">
-    <a className="button primary" href="/NexusOS-1.0.apk" download>
+    <a className="button primary" href={`/${__APK_FILE__}`} download>
       <DownloadIcon />
       Download APK
     </a>
