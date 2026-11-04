@@ -1,6 +1,6 @@
-# NexusOS — app download page
+# Study Hall — app download page
 
-The public download page for [NexusOS](https://nexusos-sigma.vercel.app), the student
+The public download page for [Study Hall](https://nexusos-sigma.vercel.app), the student
 productivity workspace. Visitors land here, install the signed APK on Android, or add the
 web app to their home screen on iOS.
 
@@ -13,7 +13,7 @@ src/main.jsx            page content and interactions
 src/effects/            RippleDistortion, FlyingButton, SideRays, SwarmCursor
 public/styles.css       monochrome theme shared with the app
 public/styles-sections.css  section-level styles
-public/NexusOS-1.0.apk  signed release build
+public/Study Hall-1.0.apk  signed release build
 public/icon*.{svg,png}  app icons
 public/art/             ripple and spotlight surfaces
 scripts/release.mjs     reads version, size and SHA-256 out of the APK
@@ -43,7 +43,7 @@ npm run preview    # serve dist locally
 Get the checksum with:
 
 ```bash
-sha256sum public/NexusOS-1.0.apk
+sha256sum public/Study Hall-1.0.apk
 ```
 
 ## iOS
@@ -58,7 +58,7 @@ notarised, so a sideloaded build is not an option.
 - Requires Android 7.0+ and a browser that supports Android Custom Tabs (Chrome)
 - It is a Trusted Web Activity: the app renders the live site fullscreen, so product
   updates ship without a new APK
-- Signed with the NexusOS release key. The same key must sign every future build — a
+- Signed with the Study Hall release key. The same key must sign every future build — a
   different key installs as a separate app and breaks updates.
 - Digital Asset Links live in the main app repo at
   `public/.well-known/assetlinks.json` and are served from
