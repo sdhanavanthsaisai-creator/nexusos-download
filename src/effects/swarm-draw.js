@@ -61,8 +61,8 @@ export const drawSwarm = (ctx, s) => {
     }
     const tint = Math.max(Math.min(1, Math.max(0, (flat - 380) / 900)), flash, wave);
     const width = body * (1 + wave * 0.8);
-    let length = width + Math.min(flat * s.trail * 0.02, body * 14);
-    if (s.shape === 2) length = width * 2.6 + Math.min(flat * s.trail * 0.03, body * 18);
+    let length = width + Math.min((flat * s.trail * 0.02), body * 14);
+    if (s.shape === 2) length = width * 2.6 + Math.min((flat * s.trail * 0.03), body * 18);
     const twinkle = 0.86 + 0.14 * Math.sin(time * 3.1 + ctx.glint[i]);
     const dim = 1 - s.depth * 0.45 * Math.max(0, -near);
     const o = written * 4;

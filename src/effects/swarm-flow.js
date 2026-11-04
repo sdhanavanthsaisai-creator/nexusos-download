@@ -65,8 +65,8 @@ export const stir = (ctx, s, dt, ease) => {
 };
 
 /**
- * Semi-Lagrangian advection, confinement and a Jacobi pressure solve, so the field reads as a
- * swirling fluid rather than noise.
+ * Semi-Lagrangian advection, confinement and a Jacobi pressure solve, so the field reads as
+ * a swirling fluid rather than noise.
  */
 export const flowField = (ctx, s, dt) => {
   const { cols, rows, cell, flowX, flowY, lastX, lastY, pressure, divergence, curl } = ctx;

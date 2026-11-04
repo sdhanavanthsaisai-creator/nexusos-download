@@ -4,8 +4,9 @@
 :root {
   --background: #000000;
   --foreground: #f1f1f1;
-  --card: #0a0a0c;
-  --card-2: #101013;
+  /* Surfaces stay translucent so the page-wide ripple reads through every panel. */
+  --card: rgba(10, 10, 12, 0.66);
+  --card-2: rgba(16, 16, 19, 0.66);
   --primary: #ffffff;
   --primary-foreground: #08080a;
   --muted: #c9c9c9;
@@ -41,6 +42,33 @@ body {
     radial-gradient(60% 60% at 50% 0%, rgba(255, 255, 255, 0.09), transparent 70%),
     radial-gradient(40% 50% at 85% 10%, rgba(255, 255, 255, 0.05), transparent 70%);
   z-index: 0;
+}
+
+/* ---------- page-wide ripple ---------- */
+
+/* Fixed to the viewport and behind every section: one continuous water surface under the
+   whole page. Pointer events pass through because the ripple listens on window. */
+.page-ripple {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: #040406;
+}
+
+.page-ripple .ripple-distortion {
+  height: 100%;
+  width: 100%;
+}
+
+/* Keeps the copy legible wherever the surface brightens, without flattening the effect. */
+.page-ripple__scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(130% 96% at 50% 0%, rgba(0, 0, 0, 0.12) 0%, rgba(0, 0, 0, 0.46) 62%, rgba(0, 0, 0, 0.66) 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.28) 0%, rgba(0, 0, 0, 0.5) 100%);
 }
 
 /* ---------- top bar ---------- */
@@ -250,8 +278,37 @@ h1 {
 .cta-row {
   display: flex;
   flex-wrap: wrap;
+  align-items: flex-end;
   gap: 10px;
-  margin-bottom: 34px;
+  margin-bottom: 12px;
+}
+
+/* One-line install route for iPhone, sitting right under the two download crafts. */
+.fly-hint {
+  margin: 0 0 34px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+  color: var(--muted);
+}
+
+.fly-hint strong {
+  color: #ffffff;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Each download action is a FlyingButton: a stage the button rests in, lifts off from and
+   lands back in. The stage is transparent so the page surface shows through the smoke. */
+.fly-slot {
+  position: relative;
+  flex: 1 1 260px;
+  max-width: 330px;
+}
+
+.fly-slot .flying-button {
+  min-height: 212px;
 }
 
 .button {

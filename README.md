@@ -1,37 +1,56 @@
-# NexusOS — Android download page
+# NexusOS — app download page
 
 The public download page for [NexusOS](https://nexusos-sigma.vercel.app), the student
-productivity workspace. Visitors land here, download the signed APK, and install the app
-on a phone.
+productivity workspace. Visitors land here, install the signed APK on Android, or add the
+web app to their home screen on iOS.
 
-Static site: one HTML file, one stylesheet, three icons and the APK. No build step, no
-dependencies, no JavaScript framework.
+Vite + React 19, with a WebGL ripple surface and a flying-button download CTA. Plain CSS,
+no framework on the styling side.
 
 ```
-index.html              landing page (hero, install steps, FAQ, checksum)
-styles.css              monochrome theme shared with the app
-icon.svg/.png           app icons
-NexusOS-1.0.apk         signed release build
+index.html              landing page shell (hero, compare, install, FAQ, checksum)
+src/main.jsx            page content and interactions
+src/effects/            RippleDistortion, FlyingButton, SideRays, SwarmCursor
+public/styles.css       monochrome theme shared with the app
+public/styles-sections.css  section-level styles
+public/NexusOS-1.0.apk  signed release build
+public/icon*.{svg,png}  app icons
+public/art/             ripple and spotlight surfaces
+scripts/release.mjs     reads version, size and SHA-256 out of the APK
+vite.config.js          build, plus APK-derived values injected into the page
 vercel.json             serves the APK as application/vnd.android.package-archive
 ```
 
 ## Deploy
 
-Vercel detects this as a static site — push to `main` and it deploys, no configuration
-needed. Any static host works the same way (Netlify, Cloudflare Pages, GitHub Pages).
+Vercel detects Vite: `npm run build` produces `dist`, and the site is served from there.
+Push to `main` and it deploys. Any static host works the same way (Netlify, Cloudflare
+Pages, GitHub Pages).
+
+```bash
+npm install
+npm run build      # -> dist
+npm run preview    # serve dist locally
+```
 
 ## Shipping a new build
 
-1. Put the new signed APK in the repo, replacing the old one.
-2. Update the filename in `index.html` (the two `href`s), the version line, and the
-   `SHA-256` value.
-3. Commit and push — Vercel redeploys automatically.
+1. Put the new signed APK in `public/`, replacing the old one. If the filename changes,
+   update `APK_URL`-consuming references — the page reads the name, version, version code,
+   package, size and SHA-256 from the APK at build time, so no numbers are hand-typed.
+2. Commit and push — Vercel redeploys automatically.
 
 Get the checksum with:
 
 ```bash
-sha256sum NexusOS-1.0.apk
+sha256sum public/NexusOS-1.0.apk
 ```
+
+## iOS
+
+There is no `.ipa` here and no App Store listing yet. iOS installs through Safari: open
+the site, tap Share, then Add to Home Screen. Apple only installs apps it has signed and
+notarised, so a sideloaded build is not an option.
 
 ## About the APK
 
